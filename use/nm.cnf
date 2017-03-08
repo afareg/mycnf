@@ -1,0 +1,77 @@
+[mysql]
+port            = 3706
+socket          = /tmp/mysql_3706.sock
+
+[mysqld]
+datadir=/data/mysql/3706
+user=nobody
+skip-name-resolve
+default_storage_engine=InnoDB
+federated
+
+#skip-character-set-client-handshake
+#character_set_server=utf8
+#collation_server=utf8_unicode_ci
+default-character-set=utf8
+
+port            = 3706
+socket          = /tmp/mysql_3706.sock
+
+back_log = 150
+max_connections = 3000
+max_connect_errors = 10
+table_open_cache = 2048
+max_allowed_packet = 16M
+binlog_cache_size = 1M
+max_heap_table_size = 64M
+sort_buffer_size = 8M
+join_buffer_size = 8M
+thread_cache_size = 8
+thread_concurrency = 16
+query_cache_size = 512M
+query_cache_limit = 2M
+thread_stack = 192K
+transaction_isolation = REPEATABLE-READ
+tmp_table_size = 64M
+
+log-bin=mysql-bin
+server-id = 10333706
+relay_log=mysql-relay-bin
+binlog_format=statement
+log_slave_updates=1
+
+slow_query_log=1
+long_query_time = 1
+
+key_buffer_size = 32M
+read_buffer_size = 2M
+read_rnd_buffer_size = 16M
+bulk_insert_buffer_size = 64M
+
+
+myisam_sort_buffer_size = 16M
+myisam_max_sort_file_size = 16M
+myisam_repair_threads = 1
+myisam_recover
+
+innodb_file_per_table=1
+innodb_file_format=barracuda
+innodb_strict_mode=1
+innodb_additional_mem_pool_size = 16M
+innodb_buffer_pool_size = 48G
+innodb_data_file_path = ibdata1:100M:autoextend
+
+
+innodb_file_io_threads = 4
+innodb_thread_concurrency = 16
+innodb_flush_log_at_trx_commit = 2
+innodb_log_buffer_size = 8M
+innodb_log_file_size = 64M
+innodb_log_files_in_group = 3
+
+innodb_max_dirty_pages_pct = 90
+innodb_flush_method=O_DIRECT
+innodb_lock_wait_timeout = 2
+
+[mysqld_safe]
+open-files-limit = 8192

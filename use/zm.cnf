@@ -1,0 +1,163 @@
+# The following options will be passed to all MySQL clients
+[client]
+#password       = your_password
+port            = 3306
+socket          = /data/mysql/zm_mobile/mysql.sock
+#pid-file       = /data/mysql/zm_mobile/mysql.pid
+default-character-set = utf8
+#character_set_server=utf8
+# Here follows entries for some specific programs
+
+# The MySQL server
+[mysqld]
+port            = 3306
+socket          = /data/mysql/zm_mobile/mysql.sock
+pid-file        = /data/mysql/zm_mobile/mysql.pid
+datadir         = /data/mysql/zm_mobile/var
+user            = mysql
+skip-federated
+#skip-networking
+skip-name-resolve
+skip-external-locking
+skip_slave_start
+default_storage_engine = InnoDB
+explicit_defaults_for_timestamp = on
+log-slave-updates
+
+sync_binlog = 1
+max_connections = 5000
+max_connect_errors = 100
+tmp_table_size = 4M
+log_slave_updates = 1
+bulk_insert_buffer_size = 32M
+query_cache_size = 512M
+query_cache_limit = 2M
+max_allowed_packet = 256M
+key_buffer_size = 384M
+#table_cache = 512
+sort_buffer_size = 128M
+read_buffer_size = 8M
+read_rnd_buffer_size = 64M
+myisam_sort_buffer_size = 64M
+thread_cache_size = 8
+thread_concurrency = 64
+
+slow-query-log = on
+long_query_time = 0.5
+slow-query-log-file = TEST-slow.log
+
+log-bin=mysql-bin
+binlog_cache_size = 32M
+binlog_format=row
+max_binlog_size=1024M
+max_relay_log_size=100M
+
+server-id       = 108623306
+tmpdir          = /dev/shm
+character_set_server=utf8
+#default-character-set = utf8
+
+
+innodb_file_per_table = 1
+innodb_file_format = barracuda
+innodb_data_home_dir = /data/mysql/zm_mobile/var
+innodb_data_file_path = ibdata1:100M:autoextend
+innodb_log_group_home_dir = /data/mysql/zm_mobile/var
+#innodb_log_arch_dir = /data/mysql/zm_mobile/var
+innodb_buffer_pool_size = 16G
+#innodb_additional_mem_pool_size = 20M
+innodb_log_file_size = 256M
+innodb_log_buffer_size = 8M
+innodb_flush_log_at_trx_commit = 1
+innodb_lock_wait_timeout = 50
+innodb_flush_method = O_DIRECT
+
+
+# The safe_mysqld script
+[safe_mysqld]
+port            = 3306
+log-error = /data/mysql/zm_mobile/var/TEST3-err.log
+open-files-limit = 8192
+default-character-set = utf8
+
+
+[mysqldump]
+quick
+max_allowed_packet = 128M
+
+
+
+[mysql]
+no-auto-rehash
+default-character-set = utf8
+# Remove the next comment character if you are not familiar with SQL
+#safe-updates
+
+[isamchk]
+key_buffer = 256M
+sort_buffer_size = 256M
+read_buffer = 2M
+write_buffer = 2M
+
+[myisamchk]
+key_buffer = 256M
+sort_buffer_size = 256M
+read_buffer = 2M
+write_buffer = 2M
+
+[mysqlhotcopy]
+interactive-timeout
+
+
+[mysqld_multi]
+mysqld     = /usr/bin/mysqld_safe
+mysqladmin = /usr/bin/mysqladmin
+log        = /data/mysql/zm_mobile/var/mysqld_multi.log
+user    = root
+# user       = multi_admin
+# password   = secret
+
+# If you want to use mysqld_multi uncomment 1 or more mysqld sections
+# below or add your own ones.
+
+# WARNING
+# --------
+# If you uncomment mysqld1 than make absolutely sure, that database mysql,
+# configured above, is not started.  This may result in corrupted data!
+[mysqld1]
+port       = 3306
+datadir    = /data/mysql/zm_mobile/var
+pid-file   = /data/mysql/zm_mobile/mysqld.pid
+socket     = /data/mysql/zm_mobile/mysql.sock
+user       = mysql
+
+[mysqld3400]
+port       = 3400
+datadir    = /data/mysql/zm_bi_ab/var
+socket     = /data/mysql/zm_bi_ab/mysql.sock
+basedir    = /data/mysql/
+user       = mysql
+
+innodb_data_home_dir      = /data/mysql/zm_bi_ab/var
+innodb_data_file_path     = ibdata1:100M:autoextend
+innodb_log_group_home_dir = /data/mysql/zm_bi_ab/var
+innodb_log_file_size      = 100M
+
+
+server-id       = 100683400
+key_buffer_size = 512M
+innodb_buffer_pool_size = 4G
+
+# [mysqld3]
+# port       = 3308
+# datadir    = /var/lib/mysql-databases/mysqld3
+# pid-file   = /var/lib/mysql-databases/mysqld3/mysql.pid
+# socket     = /var/lib/mysql-databases/mysqld3/mysql.sock
+# user       = mysql
+
+# [mysqld6]
+# port       = 3309
+# datadir    = /var/lib/mysql-databases/mysqld6
+# pid-file   = /var/lib/mysql-databases/mysqld6/mysql.pid
+# socket     = /var/lib/mysql-databases/mysqld6/mysql.sock
+# user       = mysql
